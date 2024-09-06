@@ -4,128 +4,132 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 export default function Component() {
-  const [students, setStudents] = useState([
-    { id: 1, name: "John Doe", present: true },
-    { id: 2, name: "Jane Smith", present: false },
-    { id: 3, name: "Michael Johnson", present: true },
-    { id: 4, name: "Emily Davis", present: false },
-    { id: 5, name: "David Wilson", present: true },
-  ]);
-  const [newStudentName, setNewStudentName] = useState("");
-  const toggleAttendance = (id) => {
-    setStudents(
-      students.map((student) =>
-        student.id === id ? { ...student, present: !student.present } : student
-      )
-    );
-  };
-  const addStudent = () => {
-    if (newStudentName.trim() !== "") {
-      const newStudent = {
-        id: students.length + 1,
-        name: newStudentName,
-        present: false,
-      };
-      setStudents([...students, newStudent]);
-      setNewStudentName("");
-    }
-  };
-  const viewStudentStatus = (id) => {
-    window.location.href = `/student/${id}`;
-  };
-  return (
-    <div className="w-full max-w-xl mx-auto p-6 md:p-8">
-      <div className="flex items-center justify-center mb-6">
-        <h1 className="text-2xl font-bold">Attendance Taker</h1>
-      </div>
-      <div className="space-y-4">
-        {students.map((student) => (
-          <div
-            key={student.id}
-            className={`flex items-center justify-between rounded-md p-4 shadow-sm cursor-pointer ${
-              student.present
-                ? "bg-green-500 text-white"
-                : "bg-gray-400 text-white"
-            }`}
-            onClick={() => toggleAttendance(student.id)}
-          >
-            <div className="flex items-center gap-4">
-              <div
-                className={`w-4 h-4 rounded-full ${
-                  student.present ? "bg-green-50" : "bg-gray-400"
-                }`}
-              />
-              <span className="font-medium">{student.name}</span>
-            </div>
-            <Button
-              className="ml-4 border-2 bg-green-500 text-white"
-              onClick={(e) => {
-                e.stopPropagation();
-                viewStudentStatus(student.id);
-              }}
-            >
-              <EyeIcon className="w-4 h-4" />
-            </Button>
-          </div>
-        ))}
-      </div>
-      <div className="mt-8 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Input
-            value={newStudentName}
-            onChange={(e) => setNewStudentName(e.target.value)}
-            placeholder="Enter student name"
-          />
-          <Button
-            className="flex items-center justify-center gap-2"
-            onClick={addStudent}
-          >
-            <PlusIcon className="w-4 h-4" />
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
+	const [students, setStudents] = useState([
+		{ id: 1, name: "John Doe", present: true },
+		{ id: 2, name: "Jane Smith", present: false },
+		{ id: 3, name: "Michael Johnson", present: true },
+		{ id: 4, name: "Emily Davis", present: false },
+		{ id: 5, name: "David Wilson", present: true },
+	]);
+	const [newStudentName, setNewStudentName] = useState("");
+	const toggleAttendance = (id) => {
+		setStudents(
+			students.map((student) =>
+				student.id === id ? { ...student, present: !student.present } : student
+			)
+		);
+	};
+	const addStudent = () => {
+		if (newStudentName.trim() !== "") {
+			const newStudent = {
+				id: students.length + 1,
+				name: newStudentName,
+				present: false,
+			};
+			setStudents([...students, newStudent]);
+			setNewStudentName("");
+		}
+	};
+	const viewStudentStatus = (id) => {
+		window.location.href = `/student/${id}`;
+	};
+	return (
+		<div className="w-full max-w-xl mx-auto p-6 md:p-8">
+			<div className="flex items-center justify-center mb-6">
+				<h1 className="text-2xl font-bold">Attendance Taker</h1>
+			</div>
+			<div className="space-y-4">
+				{students.map((student) => (
+					<div
+						key={student.id}
+						className={`flex items-center justify-between rounded-md p-4 shadow-sm cursor-pointer ${
+							student.present
+								? "bg-green-500 text-white"
+								: "bg-gray-200 text-gray-400"
+						}`}
+						onClick={() => toggleAttendance(student.id)}
+					>
+						<div className="flex items-center gap-4">
+							<div
+								className={`w-4 h-4 rounded-full ${
+									student.present ? "bg-green-50" : "bg-gray-200"
+								}`}
+							/>
+							<span className="font-medium">{student.name}</span>
+						</div>
+						<Button
+							className={`ml-4 border-2 ${
+								student.present
+									? "bg-green-500 text-white"
+									: "bg-gray-200 text-gray-500"
+							} `}
+							onClick={(e) => {
+								e.stopPropagation();
+								viewStudentStatus(student.id);
+							}}
+						>
+							<EyeIcon className="w-4 h-4" />
+						</Button>
+					</div>
+				))}
+			</div>
+			<div className="mt-8 flex justify-between items-center p-4">
+				<div className="flex items-center gap-2 w-full ">
+					<Input
+						value={newStudentName}
+						onChange={(e) => setNewStudentName(e.target.value)}
+						placeholder="Enter student name"
+					/>
+					<Button
+						className="flex items-center justify-center gap-2"
+						onClick={addStudent}
+					>
+						<PlusIcon className="w-4 h-4" />
+					</Button>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 function EyeIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-      <circle cx="12" cy="12" r="3" />
-    </svg>
-  );
+	return (
+		<svg
+			{...props}
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		>
+			<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+			<circle cx="12" cy="12" r="3" />
+		</svg>
+	);
 }
 
 function PlusIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12h14" />
-      <path d="M12 5v14" />
-    </svg>
-  );
+	return (
+		<svg
+			{...props}
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		>
+			<path d="M5 12h14" />
+			<path d="M12 5v14" />
+		</svg>
+	);
 }
 
 // import Image from "next/image";
