@@ -31,7 +31,7 @@ export default function Component() {
 		}
 	};
 	const viewStudentStatus = (id) => {
-		window.location.href = `/student/${id}`;
+		window.location.href = `/profile`;
 	};
 	return (
 		<div className="w-full max-w-xl mx-auto p-6 md:p-8">
